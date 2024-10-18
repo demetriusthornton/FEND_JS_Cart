@@ -165,8 +165,7 @@ function emptyCart() {
   });
   cart = [];
 }
-
-let totalPaid = 0; // This variable keeps track of the total amount paid by the customer
+let totalPaid = 0;
 
 function emptyCart() {
   // Logic to empty the cart goes here
@@ -174,18 +173,17 @@ function emptyCart() {
 }
 
 function pay(amount) {
-  totalPaid += amount; // Add the current payment to the total paid amount
-  const total = cartTotal(); // Get the total price of items in the cart
-  let remaining = totalPaid - total; // Calculate the remaining balance
+  totalPaid += amount; // Add the current payment to totalPaid
+  let total = cartTotal(); // adds the total price of items in the cart
+  let remaining = totalPaid - total; // shows the remaining balance after payment
 
   if (remaining >= 0) {
-    // Payment is sufficient or there's excess money
-    totalPaid = 0; // Reset totalPaid as the payment is complete
-    emptyCart(); // Empty the cart
-    return `Payment complete! Your change is $${remaining.toFixed(2)}.`; // Round change to the nearest tenth place
+    totalPaid = remaining; // Update totalPaid to store any excess payment (change)
+    emptyCart(); // Empty the cart since payment is sufficient
+    return remaining.toFixed(2); // Return the change (remaining balance with the correct cents calc)
   } else {
-    // Payment is insufficient, return the remaining amount needed
-    return `You still need to pay $${Math.abs(remaining).toFixed(2)}.`; // Return the amount still needed
+    // Payment is insufficient
+    return remaining.toFixed(2); // Return the negative remaining amount (still needed)
   }
 }
 
