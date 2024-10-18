@@ -166,36 +166,28 @@ function emptyCart() {
   cart = [];
 }
 
-// Function to handle payment
+let totalPaid = 0; // This variable keeps track of the total amount paid by the customer
+
+function emptyCart() {
+  // Logic to empty the cart goes here
+  console.log("Cart has been emptied.");
+}
+
 function pay(amount) {
-  const total = cartTotal();
-  return amount - total;
+  totalPaid += amount; // Add the current payment to the total paid amount
+  const total = cartTotal(); // Get the total price of items in the cart
+  let remaining = totalPaid - total; // Calculate the remaining balance
+
+  if (remaining >= 0) {
+    // Payment is sufficient or there's excess money
+    totalPaid = 0; // Reset totalPaid as the payment is complete
+    emptyCart(); // Empty the cart
+    return `Payment complete! Your change is $${remaining.toFixed(2)}.`; // Round change to the nearest tenth place
+  } else {
+    // Payment is insufficient, return the remaining amount needed
+    return `You still need to pay $${Math.abs(remaining).toFixed(2)}.`; // Return the amount still needed
+  }
 }
-
-let totalPaid = 0;
-totalPaid += amount;
-let remaining = totalPaid - cartTotal();
-if (remaining >= 0) {
-  totalPaid = 0;
-  emptyCart();
-}
-
-console.log(remaining);
-
-// let totalPaid = 0; // This variable keeps track of the total amount paid by the customer
-
-// function pay(amount) {
-//   totalPaid += amount;
-//   const total = cartTotal();
-//   let remaining = totalPaid - total;
-//   if (remaining >= 0) {
-//     totalPaid = 0;
-//     emptyCart();
-//     return `Payment complete! Your change is $${remaining}.`;
-//   } else {
-//     return `You still need to pay $${remaining}.`;
-//   }
-// }
 
 module.exports = {
   products,
