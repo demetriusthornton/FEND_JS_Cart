@@ -167,9 +167,43 @@ function emptyCart() {
 }
 
 // Function to handle payment
+// function pay(amount) {
+//   const total = cartTotal();
+//   return amount - total;
+// }
+
+// let totalPaid = 0;
+// totalPaid += amount;
+// let remaining = totalPaid - cartTotal();
+// if (remaining >= 0) {
+//   totalPaid = 0;
+//   emptyCart();
+// }
+
+let totalPaid = 0; // This variable keeps track of the total amount paid by the customer
+
+function cartTotal() {
+  // Assuming this function calculates the total price of items in the cart
+  // Return the total amount for demonstration purposes (you should replace this)
+  return 100; // Example total, replace with your actual cart logic
+}
+
+function emptyCart() {
+  // Logic to empty the cart goes here
+  console.log("Cart has been emptied.");
+}
+
 function pay(amount) {
+  totalPaid += amount;
   const total = cartTotal();
-  return amount - total;
+  let remaining = totalPaid - total;
+  if (remaining >= 0) {
+    totalPaid = 0;
+    emptyCart();
+    return `Payment complete! Your change is $${remaining}.`;
+  } else {
+    return `You still need to pay $${remaining}.`;
+  }
 }
 
 module.exports = {
