@@ -115,7 +115,6 @@ function emptyCart() {
       product.quantity = 0;
   });
   cart = [];
-  console.log("Cart has been emptied.");
 }
 
 /**
